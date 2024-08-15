@@ -1,8 +1,6 @@
 package nam.dev.test_training.repo;
 
-import nam.dev.test_training.DTO.ProductDTO;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import nam.dev.test_training.dto.ProductDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

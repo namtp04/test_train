@@ -2,7 +2,7 @@ package nam.dev.test_training.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import nam.dev.test_training.DTO.ProductDTO;
+import nam.dev.test_training.dto.ProductDTO;
 import nam.dev.test_training.entity.Brand;
 import nam.dev.test_training.entity.Product;
 import nam.dev.test_training.entity.Status;
@@ -12,9 +12,6 @@ import nam.dev.test_training.repo.ProductDTORepo;
 import nam.dev.test_training.repo.ProductRepo;
 import nam.dev.test_training.repo.StatusRepo;
 import nam.dev.test_training.repo.SubCateRepo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -58,12 +55,9 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Object> add(@Valid @RequestBody Product productReq, BindingResult bindingResult) {
+    public ResponseEntity<Product> add(@Valid @RequestBody Product productReq) {
 
-        if (bindingResult.hasErrors()) {
-            Map<String, String> errors = getErrorMessages(bindingResult);
-            return ResponseEntity.badRequest().body(errors);
-        }
+
 
         SubCate subCate = subCateRepo.findById(productReq.getSubCate().getId()).get();
         Status status = statusRepo.findById(productReq.getStatus().getId()).get();
@@ -126,8 +120,6 @@ public class ProductController {
         }
         return ResponseEntity.ok(product);
     }
-
-
 
     public Map<String, String> getErrorMessages(BindingResult bindingResult) {
         Map<String, String> errors = new HashMap<>();
